@@ -296,7 +296,9 @@ namespace STCompilerLib
 
         public override MetaTreeNode VisitRepeatLoop([NotNull] AllenBradleySTParser.RepeatLoopContext context)
         {
-            return base.VisitRepeatLoop(context);
+            MetaTreeNode RepeatLoopNode = new MetaTreeNode(StRules.RepeatLoop);
+            RepeatLoopNode.Add(base.Visit(context.children[1]));
+            return RepeatLoopNode;
         }
 
         public override MetaTreeNode VisitForLoopBlock([NotNull] AllenBradleySTParser.ForLoopBlockContext context)
@@ -311,7 +313,13 @@ namespace STCompilerLib
 
         public override MetaTreeNode VisitRepeatLoopBlock([NotNull] AllenBradleySTParser.RepeatLoopBlockContext context)
         {
-            return base.VisitRepeatLoopBlock(context);
+            MetaTreeNode RepeatLoopBlockNode = new MetaTreeNode(StRules.RepeatLoopBlock);
+            RepeatLoopBlockNode.Add(base.Visit(context.children[context.children.Count - 2]));
+            for(int i = 1; i < context.children.Count - 2; i++)
+            {
+                RepeatLoopBlockNode.Add(base.Visit(context.children[i]));
+            }
+            return RepeatLoopBlockNode;
         }
 
     }
