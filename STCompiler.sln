@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.271
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STCompilerCLI", "STCompilerCLI\STCompilerCLI.csproj", "{1D179753-82C8-4E96-BD44-55835F52E96C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STCompilerLib", "STCompilerLib\STCompilerLib.csproj", "{EF7E66BF-1DA3-4B8B-82F6-C3C2B12D7D9C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1D179753-82C8-4E96-BD44-55835F52E96C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D179753-82C8-4E96-BD44-55835F52E96C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D179753-82C8-4E96-BD44-55835F52E96C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D179753-82C8-4E96-BD44-55835F52E96C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF7E66BF-1DA3-4B8B-82F6-C3C2B12D7D9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF7E66BF-1DA3-4B8B-82F6-C3C2B12D7D9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF7E66BF-1DA3-4B8B-82F6-C3C2B12D7D9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF7E66BF-1DA3-4B8B-82F6-C3C2B12D7D9C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {997C7D7A-A16C-4581-ACE8-73AB3502795C}
+	EndGlobalSection
+EndGlobal
