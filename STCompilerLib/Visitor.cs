@@ -3,6 +3,7 @@ using Antlr4.Runtime.Tree;
 using STCompilerLib.GenericTree;
 using STCompilerLib.SyntaxTree;
 using STCompilerLib.SyntaxTree.Nodes;
+using System;
 using System.Runtime.CompilerServices;
 
 namespace STCompilerLib
@@ -107,6 +108,7 @@ namespace STCompilerLib
 
         public override MetaTreeNode VisitNegationExpression([NotNull] AllenBradleySTParser.NegationExpressionContext context)
         {
+            throw new NotImplementedException();
             return base.VisitNegationExpression(context);
         }
 
@@ -122,7 +124,12 @@ namespace STCompilerLib
 
         public override MetaTreeNode VisitBooleanCompareExpression([NotNull] AllenBradleySTParser.BooleanCompareExpressionContext context)
         {
-            return base.VisitBooleanCompareExpression(context);
+            MetaTreeNode BooleanExpNode = new MetaTreeNode(StRules.BooleanCompareExpression);
+            foreach (var node in context.children)
+            {
+                BooleanExpNode.Add(base.Visit(node));
+            }
+            return BooleanExpNode;
         }
 
         public override MetaTreeNode VisitIdentifierExpression([NotNull] AllenBradleySTParser.IdentifierExpressionContext context)
@@ -238,26 +245,31 @@ namespace STCompilerLib
 
         public override MetaTreeNode VisitBooleanCompare([NotNull] AllenBradleySTParser.BooleanCompareContext context)
         {
+            throw new NotImplementedException();
             return base.VisitBooleanCompare(context);
         }
 
         public override MetaTreeNode VisitString([NotNull] AllenBradleySTParser.StringContext context)
         {
+            throw new NotImplementedException();
             return base.VisitString(context);
         }
 
         public override MetaTreeNode VisitBooleanIdentifier([NotNull] AllenBradleySTParser.BooleanIdentifierContext context)
         {
+            throw new NotImplementedException();
             return base.VisitBooleanIdentifier(context);
         }
 
         public override MetaTreeNode VisitNegative([NotNull] AllenBradleySTParser.NegativeContext context)
         {
+            throw new NotImplementedException();
             return base.VisitNegative(context);
         }
 
         public override MetaTreeNode VisitIndexOperator([NotNull] AllenBradleySTParser.IndexOperatorContext context)
         {
+            throw new NotImplementedException();
             return base.VisitIndexOperator(context);
         }
 
