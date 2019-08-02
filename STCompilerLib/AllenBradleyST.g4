@@ -4,7 +4,6 @@ grammar AllenBradleyST;
  * Parser Rules
  */
 
-
 compilationUnit: block+ EOF?;
 
 arithmaticOperator: Plus | Minus | Mul | Div | Mod;
@@ -23,6 +22,7 @@ string: String;
 
 booleanIdentifier: True | False;
 
+
 identifier:
 	ID
 	| booleanIdentifier
@@ -32,17 +32,19 @@ identifier:
 	| identifier ('.') (identifier | indexOperator)
 	| identifier indexOperator;
 
+identiferResolvedName: identifier;
+
 negative: Minus;
 
 indexOperator: BracketOpen expression BracketClose;
 
-function: identifier '(' functionArg* ')';
+function: identiferResolvedName '(' functionArg* ')';
 
 functionArg: expression ','?;
 
 primaryExpression: expression;
 expression:
-	identifier #identifierExpression
+	identiferResolvedName #identifierExpression
 	| '(' expression ')' #subExpression
 	| (Not | negative) expression #negationExpression
 	| expression arithmaticOperator expression #arithmaticMathExpression
@@ -77,7 +79,7 @@ booleanCompareExpression:
 	| booleanCompareExpression booleanCompare booleanCompareExpression;
 */
 
-assignment: identifier Assign (primaryExpression | string);
+assignment: identiferResolvedName Assign (primaryExpression | string);
 
 statement:
 	assignment Semi
@@ -109,7 +111,7 @@ elseBlock: Else block?;
 
 caseElseStatement: Else block?;
 
-caseStatement: Case identifier Of;
+caseStatement: Case identiferResolvedName Of;
 
 caseIdentifier: DigitSequence | (DigitSequence ',');
 

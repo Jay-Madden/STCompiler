@@ -1,3 +1,1 @@
-repeat
-	A := 3;
-untIl a > 3 end_repeat;
+A.B.C.D := 2;

@@ -71,7 +71,7 @@ namespace STCompilerLib.SyntaxTree.Nodes
                 indent += "| ";
             }
             Console.Write(Kind);
-            if(Kind == StRules.Identifier)
+            if(Kind == StRules.Identifier && Children.Count == 1)
             {
                 Console.WriteLine($": {Children[0].Token.Value}");
             }

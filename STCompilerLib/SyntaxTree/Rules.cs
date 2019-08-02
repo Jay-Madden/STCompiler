@@ -51,6 +51,7 @@ namespace STCompilerLib.SyntaxTree
         RepeatLoop,
         IdentifierExpression,
         ForLoopBlock,
-        RepeatLoopBlock
+        RepeatLoopBlock,
+        IdentifierResolvedName
     }
 }

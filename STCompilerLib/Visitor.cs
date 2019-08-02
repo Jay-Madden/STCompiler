@@ -3,6 +3,7 @@ using Antlr4.Runtime.Tree;
 using STCompilerLib.GenericTree;
 using STCompilerLib.SyntaxTree;
 using STCompilerLib.SyntaxTree.Nodes;
+using System.Runtime.CompilerServices;
 
 namespace STCompilerLib
 {
@@ -20,7 +21,6 @@ namespace STCompilerLib
             {
                 Root.Add(base.Visit(node));
             }
-            //Console.WriteLine(Root.VisitChildren());
             Root.PrintChildren("", true);
             return Root; 
         }
@@ -28,8 +28,26 @@ namespace STCompilerLib
         public override MetaTreeNode VisitIdentifier([NotNull] AllenBradleySTParser.IdentifierContext context)
         {
             MetaTreeNode Operator = new MetaTreeNode(StRules.Identifier);
-            Operator.Add(new GenericTreeToken(context.children[0]));
+            if(context.children.Count > 1)
+            {
+                foreach (var node in context.children)
+                {
+                    Operator.Add(base.Visit(node));
+                }
+            }
+            else
+            {
+                Operator.Add(new GenericTreeToken(context.children[0]));
+            }
+
             return Operator;
+        }
+
+        public override MetaTreeNode VisitIdentiferResolvedName([NotNull] AllenBradleySTParser.IdentiferResolvedNameContext context)
+        {
+            MetaTreeNode IdResolvedNode = new MetaTreeNode(StRules.IdentifierResolvedName);
+            IdResolvedNode.Add(base.Visit(context.children[0]));
+            return IdResolvedNode;
         }
 
         public override MetaTreeNode VisitBlock([NotNull] AllenBradleySTParser.BlockContext context)
@@ -136,11 +154,6 @@ namespace STCompilerLib
             MetaTreeNode Operator = new MetaTreeNode(StRules.ArithmaticCompareOp);
             Operator.Add(new GenericTreeToken(context.children[0]));
             return Operator;
-        }
-
-        public override MetaTreeNode VisitFunctionExpression([NotNull] AllenBradleySTParser.FunctionExpressionContext context)
-        {
-            return base.VisitFunctionExpression(context);
         }
 
         public override MetaTreeNode VisitAssignment([NotNull] AllenBradleySTParser.AssignmentContext context)
