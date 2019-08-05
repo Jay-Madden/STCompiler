@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -40,22 +41,6 @@ namespace STCompilerLib.SyntaxTree.Nodes
         {
             return Kind.ToString();
         }
-        
-        public string GetAllChildren()
-        {
-            return VisitChildren();
-        }
-        public string VisitChildren(string s = "")
-        {
-
-            Console.WriteLine($"{Environment.NewLine} {this.Kind}");
-
-            foreach (var child in this)
-            {
-                s = child.Node?.VisitChildren(s) + $" {Environment.NewLine} {this.Kind}";
-            }
-            return s;
-        }
 
         public void PrintChildren(string indent, bool last)
         {
@@ -71,9 +56,27 @@ namespace STCompilerLib.SyntaxTree.Nodes
                 indent += "| ";
             }
             Console.Write(Kind);
-            if(Kind == StRules.Identifier && Children.Count == 1)
+            if(
+                Kind == StRules.IdentifierNode ||
+                Kind == StRules.BooleanIdentifierNode ||
+                Kind == StRules.DigitSeqNode ||
+                Kind == StRules.HexIdentifierNode ||
+                Kind == StRules.MemberIndexNode ||
+                Kind == StRules.MemberNode
+               ) 
             {
-                Console.WriteLine($": {Children[0].Token.Value}");
+                if (Children.Count == 1)
+                {
+                    Console.WriteLine($": {Children[0].Token.Value}");
+                }
+                else
+                {
+                    Console.WriteLine();
+                    for (int i = 0; i < Children.Count; i++)
+                    {
+                        Children[i].Node?.PrintChildren(indent, i == Children.Count - 1);
+                    }
+                }
             }
             else
             {
@@ -82,7 +85,6 @@ namespace STCompilerLib.SyntaxTree.Nodes
                 {
                     Children[i].Node?.PrintChildren(indent, i == Children.Count - 1);
                 }
-
             }
         }
     }

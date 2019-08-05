@@ -8,9 +8,8 @@ namespace STCompilerLib.SyntaxTree
 {
     internal enum StRules
     {
-        File,
-        ArithmaticMathOp,
-        ArithmaticCompareOp,
+        ArithmeticMathOp,
+        ArithmeticCompareOp,
         BooleanCompareOp,
         CompilationUnit,
         String,
@@ -41,8 +40,8 @@ namespace STCompilerLib.SyntaxTree
         ParensExpression,
         IdExpression,
         NegationExpression,
-        ArithmaticMathExpression,
-        ArithmaticCompareExpression,
+        ArithmeticMathExpression,
+        ArithmeticCompareExpression,
         BooleanCompareExpression,
         FunctionExpression,
         ExitStatement,
@@ -52,6 +51,12 @@ namespace STCompilerLib.SyntaxTree
         IdentifierExpression,
         ForLoopBlock,
         RepeatLoopBlock,
-        IdentifierResolvedName
+        IdentifierResolvedName,
+        DigitSeqNode,
+        BooleanIdentifierNode,
+        IdentifierNode,
+        MemberNode,
+        HexIdentifierNode,
+        MemberIndexNode
     }
 }

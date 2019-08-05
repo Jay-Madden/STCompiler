@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
 using STCompilerLib.SyntaxTree;
+[assembly: CLSCompliant(true)]
 
 namespace STCompilerLib
 {
@@ -18,17 +19,17 @@ namespace STCompilerLib
         }
         public void Run(string input)
         {
-            try
-            {
+            //try
+            //{
                 Console.WriteLine("START");
                 RunParser(input);
                 Console.Write("DONE. Hit RETURN to exit: ");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("ERROR: " + ex);
-                Console.Write("Hit RETURN to exit: ");
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine("ERROR: " + ex);
+            //    Console.Write("Hit RETURN to exit: ");
+            //}
             Console.ReadLine();
         }
         private void RunParser(string input)
@@ -41,7 +42,7 @@ namespace STCompilerLib
             AllenBradleySTParser AllenBradleySTParser = new AllenBradleySTParser(commonTokenStream);
             AllenBradleySTParser.CompilationUnitContext fileContext = AllenBradleySTParser.compilationUnit();
 
-            Visitor visitor = new Visitor();
+            AntlrVisitor visitor = new AntlrVisitor();
             visitor.Visit(fileContext);
 
             //Console.WriteLine(rContext.ToStringTree());

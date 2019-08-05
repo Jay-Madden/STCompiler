@@ -22,15 +22,15 @@ string: String;
 
 booleanIdentifier: True | False;
 
-
 identifier:
-	ID
-	| booleanIdentifier
-	| DigitSequence
-	| '16#' DigitSequence
-	| '16#' ID
-	| identifier ('.') (identifier | indexOperator)
-	| identifier indexOperator;
+	ID #idNode
+	| booleanIdentifier #booleanNode
+	| DigitSequence #digitNode
+	| '16#' DigitSequence #hexDigitNode
+	| '16#' ID #hexIdNode
+	| identifier ('.') (identifier | indexOperator) #membersNode
+	| identifier indexOperator #membersIndexNode
+	;
 
 identiferResolvedName: identifier;
 

@@ -1,19 +1,16 @@
-﻿using Antlr4.Runtime.Misc;
-using Antlr4.Runtime.Tree;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
+using Antlr4.Runtime.Misc;
 using STCompilerLib.GenericTree;
-using STCompilerLib.SyntaxTree;
 using STCompilerLib.SyntaxTree.Nodes;
-using System;
-using System.Runtime.CompilerServices;
 
-namespace STCompilerLib
+namespace STCompilerLib.SyntaxTree
 {
-    internal class Visitor  : AllenBradleySTBaseVisitor<MetaTreeNode>
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
+    internal class AntlrVisitor  : AllenBradleySTBaseVisitor<MetaTreeNode>
     {
 
-        public string LineOut { get; set; }
-
-        MetaTreeNode Root; 
+        MetaTreeNode Root { get; set; }
 
         public override MetaTreeNode VisitCompilationUnit([NotNull] AllenBradleySTParser.CompilationUnitContext context)
         {
@@ -26,25 +23,87 @@ namespace STCompilerLib
             return Root; 
         }
 
-        public override MetaTreeNode VisitIdentifier([NotNull] AllenBradleySTParser.IdentifierContext context)
+        public override MetaTreeNode VisitDigitNode([NotNull] AllenBradleySTParser.DigitNodeContext context)
         {
-            MetaTreeNode Operator = new MetaTreeNode(StRules.Identifier);
-            if(context.children.Count > 1)
-            {
-                foreach (var node in context.children)
-                {
-                    Operator.Add(base.Visit(node));
-                }
-            }
-            else
-            {
-                Operator.Add(new GenericTreeToken(context.children[0]));
-            }
-
-            return Operator;
+            MetaTreeNode DigitNode = new MetaTreeNode(StRules.DigitSeqNode);
+            DigitNode.Add(new GenericTreeToken(context.children[0]));
+            return DigitNode;
         }
 
-        public override MetaTreeNode VisitIdentiferResolvedName([NotNull] AllenBradleySTParser.IdentiferResolvedNameContext context)
+        /// <summary>
+        /// Just a navigation method, overriddden here for consistency
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public override MetaTreeNode VisitBooleanNode([NotNull] AllenBradleySTParser.BooleanNodeContext context)
+        {
+            return base.VisitBooleanNode(context);
+        }
+
+        public override MetaTreeNode VisitHexDigitNode([NotNull] AllenBradleySTParser.HexDigitNodeContext context)
+        {
+            MetaTreeNode HexNode = new MetaTreeNode(StRules.HexIdentifierNode);
+            HexNode.Add(new GenericTreeToken(context.children[0]));
+            return HexNode;
+        }
+        public override MetaTreeNode VisitHexIdNode([NotNull] AllenBradleySTParser.HexIdNodeContext context)
+        {
+            MetaTreeNode HexNode = new MetaTreeNode(StRules.HexIdentifierNode);
+            HexNode.Add(new GenericTreeToken(context.children[0]));
+            return HexNode;
+        }
+
+
+        public override MetaTreeNode VisitMembersIndexNode([NotNull] AllenBradleySTParser.MembersIndexNodeContext context)
+        {
+            MetaTreeNode MembersIndexNode = new MetaTreeNode(StRules.MemberIndexNode);
+            MembersIndexNode.Add(base.Visit(context.children[0]));
+            MembersIndexNode.Add(base.Visit(context.children[1]));
+            return MembersIndexNode;
+        }
+
+        public override MetaTreeNode VisitMembersNode([NotNull] AllenBradleySTParser.MembersNodeContext context)
+        {
+            MetaTreeNode MembersNode = new MetaTreeNode(StRules.MemberNode);
+            MembersNode.Add(base.Visit(context.children[0]));
+            MembersNode.Add(base.Visit(context.children[2]));
+            return MembersNode;
+        }
+
+        public override MetaTreeNode VisitBooleanIdentifier([NotNull] AllenBradleySTParser.BooleanIdentifierContext context)
+        {
+            MetaTreeNode BooleanNode = new MetaTreeNode(StRules.BooleanIdentifierNode);
+            BooleanNode.Add(new GenericTreeToken(context.children[0]));
+            return BooleanNode;
+        }
+
+
+        public override MetaTreeNode VisitIdNode([NotNull] AllenBradleySTParser.IdNodeContext context)
+        {
+            MetaTreeNode IdNode = new MetaTreeNode(StRules.IdentifierNode);
+            IdNode.Add(new GenericTreeToken(context.children[0]));
+            return IdNode;
+        }
+
+        //public override MetaTreeNode VisitIdentifier([NotNull] AllenBradleySTParser.IdentifierContext context)
+        //{
+        //    MetaTreeNode Operator = new MetaTreeNode(StRules.Identifier);
+        //    if(context.children.Count > 1)
+        //    {
+        //        foreach (var node in context.children)
+        //        {
+        //            Operator.Add(base.Visit(node));
+        //        }
+        //    }
+        //    else
+        //    {
+        //        Operator.Add(new GenericTreeToken(context.children[0]));
+        //    }
+
+        //    return Operator;
+        //}
+
+        public override MetaTreeNode VisitIdentifierResolvedName([NotNull] AllenBradleySTParser.IdentiferResolvedNameContext context)
         {
             MetaTreeNode IdResolvedNode = new MetaTreeNode(StRules.IdentifierResolvedName);
             IdResolvedNode.Add(base.Visit(context.children[0]));
@@ -99,22 +158,24 @@ namespace STCompilerLib
             return IfBlock;
         }
 
-        public override MetaTreeNode VisitArithmaticOperator([NotNull] AllenBradleySTParser.ArithmaticOperatorContext context)
+        public override MetaTreeNode VisitArithmeticOperator([NotNull] AllenBradleySTParser.ArithmaticOperatorContext context)
         {
-            MetaTreeNode Operator = new MetaTreeNode(StRules.ArithmaticMathOp);
+            MetaTreeNode Operator = new MetaTreeNode(StRules.ArithmeticMathOp);
             Operator.Add(new GenericTreeToken(context.children[0]));
             return Operator;
         }
 
         public override MetaTreeNode VisitNegationExpression([NotNull] AllenBradleySTParser.NegationExpressionContext context)
         {
-            throw new NotImplementedException();
-            return base.VisitNegationExpression(context);
+            MetaTreeNode NegationNode = new MetaTreeNode(StRules.NegationExpression);
+            NegationNode.Add(base.Visit(context.children[0]));
+            NegationNode.Add(base.Visit(context.children[1]));
+            return NegationNode;
         }
 
         public override MetaTreeNode VisitArithmaticMathExpression([NotNull] AllenBradleySTParser.ArithmaticMathExpressionContext context)
         {
-            MetaTreeNode ArithmaticMathNode = new MetaTreeNode(StRules.ArithmaticMathExpression);
+            MetaTreeNode ArithmaticMathNode = new MetaTreeNode(StRules.ArithmeticMathExpression);
             foreach (var node in context.children)
             {
                 ArithmaticMathNode.Add(base.Visit(node));
@@ -148,7 +209,7 @@ namespace STCompilerLib
 
         public override MetaTreeNode VisitArithmaticCompareExpression([NotNull] AllenBradleySTParser.ArithmaticCompareExpressionContext context)
         {
-            MetaTreeNode ArithmaticCompareExpressionNode = new MetaTreeNode(StRules.ArithmaticCompareExpression);
+            MetaTreeNode ArithmaticCompareExpressionNode = new MetaTreeNode(StRules.ArithmeticCompareExpression);
             foreach (var node in context.children)
             {
                 ArithmaticCompareExpressionNode.Add(base.Visit(node));
@@ -158,7 +219,7 @@ namespace STCompilerLib
 
         public override MetaTreeNode VisitArithmaticCompare([NotNull] AllenBradleySTParser.ArithmaticCompareContext context)
         {
-            MetaTreeNode Operator = new MetaTreeNode(StRules.ArithmaticCompareOp);
+            MetaTreeNode Operator = new MetaTreeNode(StRules.ArithmeticCompareOp);
             Operator.Add(new GenericTreeToken(context.children[0]));
             return Operator;
         }
@@ -251,26 +312,16 @@ namespace STCompilerLib
 
         public override MetaTreeNode VisitString([NotNull] AllenBradleySTParser.StringContext context)
         {
-            throw new NotImplementedException();
-            return base.VisitString(context);
-        }
-
-        public override MetaTreeNode VisitBooleanIdentifier([NotNull] AllenBradleySTParser.BooleanIdentifierContext context)
-        {
-            throw new NotImplementedException();
-            return base.VisitBooleanIdentifier(context);
-        }
-
-        public override MetaTreeNode VisitNegative([NotNull] AllenBradleySTParser.NegativeContext context)
-        {
-            throw new NotImplementedException();
-            return base.VisitNegative(context);
+            MetaTreeNode StringNode = new MetaTreeNode(StRules.String);
+            StringNode.Add(new GenericTreeToken(context.children[0]));
+            return StringNode;
         }
 
         public override MetaTreeNode VisitIndexOperator([NotNull] AllenBradleySTParser.IndexOperatorContext context)
         {
-            throw new NotImplementedException();
-            return base.VisitIndexOperator(context);
+            MetaTreeNode IndexOperatorNode = new MetaTreeNode(StRules.IndexOperator);
+            IndexOperatorNode.Add(base.Visit(context.children[1]));
+            return IndexOperatorNode;
         }
 
         public override MetaTreeNode VisitFunction([NotNull] AllenBradleySTParser.FunctionContext context)
