@@ -38,7 +38,7 @@ namespace STCompilerLib.MetaTree
         }
 
         /// <summary>
-        /// Just a navigation method, overriddden here for consistency
+        /// Just a navigation method, overridden here for consistency
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>

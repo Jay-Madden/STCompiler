@@ -15,6 +15,7 @@ namespace STCompilerLib.MetaTree
         {
             AntlrVisitor = new AntlrVisitor();
         }
+
         public MetaTreeNode MetaRoot { get; set; }
 
         public void BuildMetaTree(AllenBradleySTParser.CompilationUnitContext ctx)
@@ -33,6 +34,7 @@ namespace STCompilerLib.MetaTree
 
         /// <summary>
         /// Iterativley DF traverses the tree and adds the appropriate meta data
+        /// Called During Tree Creation
         /// </summary>
         private void AddMetaData()
         {
@@ -43,7 +45,7 @@ namespace STCompilerLib.MetaTree
             {
                 MetaTreeNode node = stack.Pop();
 
-                for (int i = 0; i < node.Children.Count; i++)
+                for (int i = node.Children.Count - 1; i >= 0; i--)
                 {
                     if (node.Children[i].IsNode)
                     {
@@ -52,6 +54,30 @@ namespace STCompilerLib.MetaTree
                         temp.ParentIndex = i;
                         temp.ParentMax = node.Children.Count;
                     }
+                }
+            }
+            AddDepthData(0, 0, MetaRoot);
+        }
+
+        /// <summary>
+        /// Recursive DF traversal to add node depth information
+        /// </summary>
+        /// <param name="scopeDepth"></param>
+        /// <param name="node"></param>
+        /// <param name="treeDepth"></param>
+        private void AddDepthData(int treeDepth, int scopeDepth, MetaTreeNode node)
+        {
+            node.TreeDepth = treeDepth;
+            node.ScopeDepth = scopeDepth;
+            if (node.Children.Count == 0)
+                return;
+
+            foreach (GenericOptional<StRules, MetaTreeNode> n in node)
+            {
+                if (n.IsNode)
+                {
+                    int scopeD = (node.Kind == StRules.Block) ? scopeDepth + 1: scopeDepth;
+                    AddDepthData(treeDepth+1, scopeD, n.Node);
                 }
             }
         }

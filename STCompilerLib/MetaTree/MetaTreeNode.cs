@@ -29,7 +29,9 @@ namespace STCompilerLib.MetaTree
 
         public int ParentIndex { get; set; }
 
-        public int Depth { get; set; }
+        public int TreeDepth { get; set; }
+
+        public int ScopeDepth { get; set; }
 
         internal override GenericOptional<StRules, MetaTreeNode> ChildAt(int index)
         {
@@ -54,7 +56,7 @@ namespace STCompilerLib.MetaTree
                 Console.Write("|-");
                 indent += "| ";
             }
-            Console.Write(Kind);
+            Console.Write($"{Kind}: (ParentIndex: {ParentIndex}, ParentMax: {ParentMax}) (TreeDepth: {TreeDepth}, ScopeDepth: {ScopeDepth})");
             if(
                 Kind == StRules.IdentifierNode ||
                 Kind == StRules.BooleanIdentifierNode ||
@@ -66,7 +68,7 @@ namespace STCompilerLib.MetaTree
             {
                 if (Children.Count == 1)
                 {
-                    Console.WriteLine($": {Children[0].Token.Value}");
+                    Console.WriteLine($"Token: {Children[0].Token.Value}");
                 }
                 else
                 {
