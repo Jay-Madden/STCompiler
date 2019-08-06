@@ -16,12 +16,11 @@ namespace STCompilerLib.SyntaxTree.Nodes
         internal MetaTreeNode(StRules rule) : base(rule)
         {
             Children = new List<Optional>();
-
         }
 
         public void Add(GenericTreeToken token)
         {
-            Children.Add(new Optional(token));
+            Children.Add(token);
         }
 
         public void Add(MetaTreeNode node)
@@ -29,8 +28,7 @@ namespace STCompilerLib.SyntaxTree.Nodes
             Children.Add(node);
         }
 
-
-        public override List<Optional> Children { get; set; } = new List<Optional>();
+        public sealed override List<Optional> Children { get; set; }
 
         internal override GenericOptional<StRules, MetaTreeNode> ChildAt(int index)
         {

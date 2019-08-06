@@ -6,11 +6,20 @@ using STCompilerLib.SyntaxTree.Nodes;
 
 namespace STCompilerLib.SyntaxTree
 {
+    /// <summary>
+    /// AntlrTree -> MetaTree conversion, the nodes are a very close representation of the .g4 file.
+    /// those similarities will lessen as trees are generated down the line
+    /// </summary>
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     internal class AntlrVisitor  : AllenBradleySTBaseVisitor<MetaTreeNode>
     {
 
-        MetaTreeNode Root { get; set; }
+        public MetaTreeNode Root { get; set; }
+
+        public AntlrVisitor(AllenBradleySTParser.CompilationUnitContext ctx)
+        {
+           Root = base.Visit(ctx);
+        }
 
         public override MetaTreeNode VisitCompilationUnit([NotNull] AllenBradleySTParser.CompilationUnitContext context)
         {
@@ -19,7 +28,6 @@ namespace STCompilerLib.SyntaxTree
             {
                 Root.Add(base.Visit(node));
             }
-            Root.PrintChildren("", true);
             return Root; 
         }
 
@@ -84,24 +92,6 @@ namespace STCompilerLib.SyntaxTree
             IdNode.Add(new GenericTreeToken(context.children[0]));
             return IdNode;
         }
-
-        //public override MetaTreeNode VisitIdentifier([NotNull] AllenBradleySTParser.IdentifierContext context)
-        //{
-        //    MetaTreeNode Operator = new MetaTreeNode(StRules.Identifier);
-        //    if(context.children.Count > 1)
-        //    {
-        //        foreach (var node in context.children)
-        //        {
-        //            Operator.Add(base.Visit(node));
-        //        }
-        //    }
-        //    else
-        //    {
-        //        Operator.Add(new GenericTreeToken(context.children[0]));
-        //    }
-
-        //    return Operator;
-        //}
 
         public override MetaTreeNode VisitIdentifierResolvedName([NotNull] AllenBradleySTParser.IdentiferResolvedNameContext context)
         {
@@ -306,8 +296,9 @@ namespace STCompilerLib.SyntaxTree
 
         public override MetaTreeNode VisitBooleanCompare([NotNull] AllenBradleySTParser.BooleanCompareContext context)
         {
-            throw new NotImplementedException();
-            return base.VisitBooleanCompare(context);
+            MetaTreeNode BooleanNode = new MetaTreeNode(StRules.BooleanCompareExpression);
+            BooleanNode.Add(new GenericTreeToken(context.children[0]));
+            return BooleanNode;
         }
 
         public override MetaTreeNode VisitString([NotNull] AllenBradleySTParser.StringContext context)

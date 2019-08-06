@@ -14,7 +14,7 @@ namespace STCompilerLib.GenericTree
 
         public readonly TTreeRule Kind;
 
-        public GenericTreeNode(TTreeRule kind)
+        protected GenericTreeNode(TTreeRule kind)
         {
             Kind = kind;
         }

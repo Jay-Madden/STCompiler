@@ -59,9 +59,8 @@
     <Compile Include="StaticHelpers.cs" />
     <Compile Include="GenericTree\GenericTreeNode.cs" />
     <Compile Include="GenericTree\GenericOptional.cs" />
-    <Compile Include="SyntaxTree\Nodes\MetaOptional.cs" />
     <Compile Include="SyntaxTree\Nodes\MetaTreeNode.cs" />
-    <Compile Include="SyntaxTree\Rules.cs" />
+    <Compile Include="SyntaxTree\StRules.cs" />
     <Compile Include="SyntaxTree\SyntaxTree.cs" />
     <Compile Include="Tag.cs" />
     <Compile Include="TreeListener.cs" />

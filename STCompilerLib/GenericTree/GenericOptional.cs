@@ -26,19 +26,18 @@ namespace STCompilerLib.GenericTree
         public bool IsNode => Node != null;
 
         public static implicit operator GenericOptional<TTreeKind, TTreeNode>(TTreeNode node)
-            => new GenericOptional<TTreeKind, TTreeNode>(node);
+        {
+            return new GenericOptional<TTreeKind, TTreeNode>(node);
+        }
 
         public static implicit operator GenericOptional<TTreeKind, TTreeNode>(GenericTreeToken token)
-            => new GenericOptional<TTreeKind, TTreeNode>(token);
-    
+        {
+            return new GenericOptional<TTreeKind, TTreeNode>(token);
+        }
+
         public override string ToString()
         {
             return (IsNode) ? $"Rule = {Node.Kind}" : $"Token = {Token.Value?.ToString()}";
-        }
-
-        internal void PrintPretty(string indent, bool v)
-        {
-            throw new NotImplementedException();
         }
     }
 }
