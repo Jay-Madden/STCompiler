@@ -9,5 +9,6 @@ namespace STCompilerLib.GenericTree
     enum TreeKind
     {
         SyntaxTree,
+        MetaTree
     }
 }

@@ -1,13 +1,8 @@
-﻿using STCompilerLib.GenericTree;
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
+using STCompilerLib.GenericTree;
 
-namespace STCompilerLib.SyntaxTree.Nodes
+namespace STCompilerLib.MetaTree
 {
     using Optional = GenericOptional<StRules, MetaTreeNode>;
 
@@ -30,6 +25,12 @@ namespace STCompilerLib.SyntaxTree.Nodes
 
         public sealed override List<Optional> Children { get; set; }
 
+        public int ParentMax { get; set; }
+
+        public int ParentIndex { get; set; }
+
+        public int depth { get; set; }
+
         internal override GenericOptional<StRules, MetaTreeNode> ChildAt(int index)
         {
             return Children[index];
@@ -40,7 +41,7 @@ namespace STCompilerLib.SyntaxTree.Nodes
             return Kind.ToString();
         }
 
-        public void PrintChildren(string indent, bool last)
+        public void PrintChildren(string indent = "", bool last = true)
         {
             Console.Write(indent);
             if (last)

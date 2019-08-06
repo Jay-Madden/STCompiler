@@ -59,12 +59,12 @@
     <Compile Include="StaticHelpers.cs" />
     <Compile Include="GenericTree\GenericTreeNode.cs" />
     <Compile Include="GenericTree\GenericOptional.cs" />
-    <Compile Include="SyntaxTree\Nodes\MetaTreeNode.cs" />
-    <Compile Include="SyntaxTree\StRules.cs" />
-    <Compile Include="SyntaxTree\SyntaxTree.cs" />
+    <Compile Include="MetaTree\MetaTree.cs" />
+    <Compile Include="MetaTree\MetaTreeNode.cs" />
+    <Compile Include="StRules.cs" />
     <Compile Include="Tag.cs" />
     <Compile Include="TreeListener.cs" />
-    <Compile Include="SyntaxTree\AntlrVisitor.cs" />
+    <Compile Include="MetaTree\AntlrVisitor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="STCompiler.cs" />
   </ItemGroup>
@@ -75,9 +75,7 @@
     </Antlr4>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="SyntaxTree\Base\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

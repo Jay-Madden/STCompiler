@@ -37,7 +37,7 @@ namespace STCompilerLib.GenericTree
 
         public override string ToString()
         {
-            return (IsNode) ? $"Rule = {Node.Kind}" : $"Token = {Token.Value?.ToString()}";
+            return (IsNode) ? $"Rule = {Node.Kind}" : $"Token = {Token.Value}";
         }
     }
 }

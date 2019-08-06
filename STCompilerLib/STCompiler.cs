@@ -1,6 +1,8 @@
 ﻿using System;
 using Antlr4.Runtime;
+using STCompilerLib.MetaTree;
 using STCompilerLib.SyntaxTree;
+
 [assembly: CLSCompliant(true)]
 
 namespace STCompilerLib
@@ -42,8 +44,9 @@ namespace STCompilerLib
 
         private void BuildMetaTree(AllenBradleySTParser.CompilationUnitContext ctx)
         {
-            AntlrVisitor visitor = new AntlrVisitor(ctx);
-            visitor.Root.PrintChildren("", true);
+            MetaTree.MetaTree metaTree = new MetaTree.MetaTree();
+            metaTree.BuildMetaTree(ctx);
+            metaTree.PrintTree();
         }
 
     }

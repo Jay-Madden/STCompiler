@@ -1,10 +1,8 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using Antlr4.Runtime.Misc;
 using STCompilerLib.GenericTree;
-using STCompilerLib.SyntaxTree.Nodes;
 
-namespace STCompilerLib.SyntaxTree
+namespace STCompilerLib.MetaTree
 {
     /// <summary>
     /// AntlrTree -> MetaTree conversion, the nodes are a very close representation of the .g4 file.
@@ -16,10 +14,11 @@ namespace STCompilerLib.SyntaxTree
 
         public MetaTreeNode Root { get; set; }
 
-        public AntlrVisitor(AllenBradleySTParser.CompilationUnitContext ctx)
+        public MetaTreeNode BuildTree(AllenBradleySTParser.CompilationUnitContext ctx)
         {
-           Root = base.Visit(ctx);
+           return base.Visit(ctx);
         }
+
 
         public override MetaTreeNode VisitCompilationUnit([NotNull] AllenBradleySTParser.CompilationUnitContext context)
         {
