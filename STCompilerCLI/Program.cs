@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using STCompilerLib;
 using Antlr4.Runtime;
-using STCompilerLib.SyntaxTree;
 
 namespace STCompilerCLI
 {

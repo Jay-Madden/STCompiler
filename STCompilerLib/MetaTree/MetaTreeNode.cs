@@ -29,7 +29,7 @@ namespace STCompilerLib.MetaTree
 
         public int ParentIndex { get; set; }
 
-        public int depth { get; set; }
+        public int Depth { get; set; }
 
         internal override GenericOptional<StRules, MetaTreeNode> ChildAt(int index)
         {

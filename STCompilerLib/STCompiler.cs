@@ -1,7 +1,6 @@
 ﻿using System;
 using Antlr4.Runtime;
 using STCompilerLib.MetaTree;
-using STCompilerLib.SyntaxTree;
 
 [assembly: CLSCompliant(true)]
 
