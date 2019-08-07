@@ -3,6 +3,9 @@
   <Import Project="..\packages\Antlr4.CodeGenerator.4.6.6\build\Antlr4.CodeGenerator.props" Condition="Exists('..\packages\Antlr4.CodeGenerator.4.6.6\build\Antlr4.CodeGenerator.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
+    <LangVersion>8.0</LangVersion>
+</PropertyGroup>
+  <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{EF7E66BF-1DA3-4B8B-82F6-C3C2B12D7D9C}</ProjectGuid>

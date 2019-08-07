@@ -3,6 +3,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using Antlr4.Runtime.Tree;
 using STCompilerLib.GenericTree;
 
 namespace STCompilerLib.MetaTree
@@ -18,16 +20,20 @@ namespace STCompilerLib.MetaTree
 
         public MetaTreeNode MetaRoot { get; set; }
 
-        public void BuildMetaTree(AllenBradleySTParser.CompilationUnitContext ctx)
+        /// <summary>
+        /// Public Build MetaTree method
+        /// /// </summary>
+        /// <param name="ctx">Root node from which the tree will be build</param>
+        public void BuildMetaTree(IParseTree ctx)
         {
             try
             {
                 MetaRoot = AntlrVisitor.BuildTree(ctx);
                 AddMetaData(MetaRoot);
             }
-            catch (Exception )
+            catch (Exception e)
             {
-                Console.WriteLine();
+                Console.WriteLine(e);
                 throw;
             }
         }
@@ -91,9 +97,15 @@ namespace STCompilerLib.MetaTree
             }
         }
 
-        public void PrintTree()
-        {
-            MetaRoot.PrintChildren();
-        }
+        /// <summary>
+        /// Recursively traverses the tree and builds a string representation of its structure
+        /// </summary>
+        /// <returns></returns>
+        public string GetTreeString() => MetaRoot.TreeToString();
+
+        /// <summary>
+        /// Recursively traverses the tree and prints out a string representation of its structure
+        /// </summary>
+        public void PrintTree() => MetaRoot.PrintChildren();
     }
 }

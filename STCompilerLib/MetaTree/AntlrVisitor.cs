@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Antlr4.Runtime.Misc;
+using Antlr4.Runtime.Tree;
 using STCompilerLib.GenericTree;
 
 namespace STCompilerLib.MetaTree
@@ -14,7 +15,7 @@ namespace STCompilerLib.MetaTree
 
         public MetaTreeNode Root { get; set; }
 
-        public MetaTreeNode BuildTree(AllenBradleySTParser.CompilationUnitContext ctx)
+        public MetaTreeNode BuildTree(IParseTree ctx)
         {
            return base.Visit(ctx);
         }
