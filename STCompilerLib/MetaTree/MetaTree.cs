@@ -23,7 +23,7 @@ namespace STCompilerLib.MetaTree
             try
             {
                 MetaRoot = AntlrVisitor.BuildTree(ctx);
-                AddMetaData();
+                AddMetaData(MetaRoot);
             }
             catch (Exception )
             {
@@ -33,15 +33,25 @@ namespace STCompilerLib.MetaTree
         }
 
         /// <summary>
-        /// Iterativley DF traverses the tree and adds the appropriate meta data
-        /// Called During Tree Creation
+        /// Traverses the tree several times to add the appropriate metadata
         /// </summary>
-        private void AddMetaData()
+        /// <param name="root"></param>
+        private void AddMetaData(MetaTreeNode root)
+        {
+            AddParentData(root);
+            AddDepthData(0, 0, MetaRoot);
+        }
+
+        /// <summary>
+        /// Iterativley DF adds the parent info to the tree
+        /// </summary>
+        /// <param name="root"></param>
+        private void AddParentData(MetaTreeNode root)
         {
             Stack<MetaTreeNode> stack = new Stack<MetaTreeNode>();
-            stack.Push(MetaRoot);
+            stack.Push(root);
 
-            while(stack.Any())
+            while (stack.Any())
             {
                 MetaTreeNode node = stack.Pop();
 
@@ -56,7 +66,6 @@ namespace STCompilerLib.MetaTree
                     }
                 }
             }
-            AddDepthData(0, 0, MetaRoot);
         }
 
         /// <summary>

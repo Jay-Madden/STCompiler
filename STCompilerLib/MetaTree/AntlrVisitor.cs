@@ -92,7 +92,7 @@ namespace STCompilerLib.MetaTree
             return IdNode;
         }
 
-        public override MetaTreeNode VisitIdentifierResolvedName([NotNull] AllenBradleySTParser.IdentiferResolvedNameContext context)
+        public override MetaTreeNode VisitIdentifierResolvedName([NotNull] AllenBradleySTParser.IdentifierResolvedNameContext context)
         {
             MetaTreeNode IdResolvedNode = new MetaTreeNode(StRules.IdentifierResolvedName);
             IdResolvedNode.Add(base.Visit(context.children[0]));
@@ -147,7 +147,7 @@ namespace STCompilerLib.MetaTree
             return IfBlock;
         }
 
-        public override MetaTreeNode VisitArithmeticOperator([NotNull] AllenBradleySTParser.ArithmaticOperatorContext context)
+        public override MetaTreeNode VisitArithmaticOperator([NotNull] AllenBradleySTParser.ArithmaticOperatorContext context)
         {
             MetaTreeNode Operator = new MetaTreeNode(StRules.ArithmeticMathOp);
             Operator.Add(new GenericTreeToken(context.children[0]));

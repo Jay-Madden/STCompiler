@@ -32,19 +32,19 @@ identifier:
 	| identifier indexOperator #membersIndexNode
 	;
 
-identiferResolvedName: identifier;
+identifierResolvedName: identifier;
 
 negative: Minus;
 
 indexOperator: BracketOpen expression BracketClose;
 
-function: identiferResolvedName '(' functionArg* ')';
+function: identifierResolvedName '(' functionArg* ')';
 
 functionArg: expression ','?;
 
 primaryExpression: expression;
 expression:
-	identiferResolvedName #identifierExpression
+	identifierResolvedName #identifierExpression
 	| '(' expression ')' #subExpression
 	| (Not | negative) expression #negationExpression
 	| expression arithmaticOperator expression #arithmaticMathExpression
@@ -79,7 +79,7 @@ booleanCompareExpression:
 	| booleanCompareExpression booleanCompare booleanCompareExpression;
 */
 
-assignment: identiferResolvedName Assign (primaryExpression | string);
+assignment: identifierResolvedName Assign (primaryExpression | string);
 
 statement:
 	assignment Semi
@@ -111,7 +111,7 @@ elseBlock: Else block?;
 
 caseElseStatement: Else block?;
 
-caseStatement: Case identiferResolvedName Of;
+caseStatement: Case identifierResolvedName Of;
 
 caseIdentifier: DigitSequence | (DigitSequence ',');
 
@@ -244,11 +244,11 @@ Xor: X O R;
 False: F A L S E;
 True: T R U E;
 
+String: StringQuote ('$'|.)*? StringQuote;
+
 DigitSequence: Digit+;
 
 fragment Digit: [0-9];
-
-String: StringQuote '~($\')'* StringQuote;
 
 ID: Letter (Letter | Digit)*;
 

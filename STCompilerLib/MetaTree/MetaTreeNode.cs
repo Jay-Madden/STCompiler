@@ -57,14 +57,7 @@ namespace STCompilerLib.MetaTree
                 indent += "| ";
             }
             Console.Write($"{Kind}: (ParentIndex: {ParentIndex}, ParentMax: {ParentMax}) (TreeDepth: {TreeDepth}, ScopeDepth: {ScopeDepth})");
-            if(
-                Kind == StRules.IdentifierNode ||
-                Kind == StRules.BooleanIdentifierNode ||
-                Kind == StRules.DigitSeqNode ||
-                Kind == StRules.HexIdentifierNode ||
-                Kind == StRules.MemberIndexNode ||
-                Kind == StRules.MemberNode
-               ) 
+            if (RuleContainsToken(Kind))
             {
                 if (Children.Count == 1)
                 {
@@ -87,6 +80,18 @@ namespace STCompilerLib.MetaTree
                     Children[i].Node?.PrintChildren(indent, i == Children.Count - 1);
                 }
             }
+        }
+
+        private bool RuleContainsToken(StRules rule)
+        {
+            return rule == StRules.IdentifierNode ||
+                   rule == StRules.BooleanIdentifierNode ||
+                   rule == StRules.DigitSeqNode ||
+                   rule == StRules.HexIdentifierNode ||
+                   rule == StRules.MemberIndexNode ||
+                   rule == StRules.MemberNode || 
+                   rule == StRules.String || 
+                   rule == StRules.CaseIdentifier;
         }
     }
 }
