@@ -36,9 +36,9 @@ namespace STCompilerLib
             CommonTokenStream commonTokenStream = new CommonTokenStream(allenBradleyStLexer);
 
             AllenBradleySTParser allenBradleyStParser = new AllenBradleySTParser(commonTokenStream);
-            AllenBradleySTParser.CompilationUnitContext fileContext = allenBradleyStParser.compilationUnit();
+            AllenBradleySTParser.CompilationUnitContext AntlrTree = allenBradleyStParser.compilationUnit();
 
-            BuildMetaTree(fileContext);
+            BuildMetaTree(AntlrTree);
         }
 
         private void BuildMetaTree(AllenBradleySTParser.CompilationUnitContext ctx)

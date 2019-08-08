@@ -25,8 +25,8 @@ namespace STCompilerLib.GenericTree
 
         public Enumerator GetEnumerator()
             => new Enumerator(this);
-        
-        internal abstract GenericOptional<TTreeRule, TTreeNode> ChildAt(int index);
+
+        protected abstract GenericOptional<TTreeRule, TTreeNode> ChildAt(int index);
  
         public struct Enumerator
         {

@@ -10,7 +10,8 @@ namespace STCompilerLib.MetaTree
     /// those similarities will lessen as trees are generated down the line
     /// </summary>
     [SuppressMessage("ReSharper", "InconsistentNaming")]
-    internal class AntlrVisitor  : AllenBradleySTBaseVisitor<MetaTreeNode>
+    [SuppressMessage("ReSharper", "IdentifierTypo")]
+    internal class AntlrTreeVisitor  : AllenBradleySTBaseVisitor<MetaTreeNode>
     {
 
         public MetaTreeNode Root { get; set; }

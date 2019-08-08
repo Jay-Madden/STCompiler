@@ -11,11 +11,11 @@ namespace STCompilerLib.MetaTree
 {
     internal class MetaTree
     {
-        private AntlrVisitor AntlrVisitor { get; set; }
+        private AntlrTreeVisitor AntlrVisitor { get; set; }
 
         public MetaTree()
         {
-            AntlrVisitor = new AntlrVisitor();
+            AntlrVisitor = new AntlrTreeVisitor();
         }
 
         public MetaTreeNode MetaRoot { get; set; }

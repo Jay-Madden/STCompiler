@@ -4,7 +4,7 @@
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <LangVersion>8.0</LangVersion>
-</PropertyGroup>
+  </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -67,7 +67,7 @@
     <Compile Include="StRules.cs" />
     <Compile Include="Tag.cs" />
     <Compile Include="TreeListener.cs" />
-    <Compile Include="MetaTree\AntlrVisitor.cs" />
+    <Compile Include="MetaTree\AntlrTreeVisitor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="STCompiler.cs" />
   </ItemGroup>
@@ -77,8 +77,11 @@
       <CustomToolNamespace>STCompilerLib</CustomToolNamespace>
     </Antlr4>
     <None Include="packages.config" />
+    <None Include="ReadMeMarkdown.md" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="README.html" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

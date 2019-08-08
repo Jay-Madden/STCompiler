@@ -35,7 +35,7 @@ namespace STCompilerLib.MetaTree
 
         public int ScopeDepth { get; set; }
 
-        internal override GenericOptional<StRules, MetaTreeNode> ChildAt(int index)
+        protected override GenericOptional<StRules, MetaTreeNode> ChildAt(int index)
         {
             return Children[index];
         }
@@ -100,6 +100,8 @@ namespace STCompilerLib.MetaTree
         /// <param name="last"></param>
         public void PrintChildren(string indent = "", bool last = true)
         {
+
+
             Console.Write(indent);
             if (last)
             {
@@ -111,13 +113,33 @@ namespace STCompilerLib.MetaTree
                 Console.Write("|-");
                 indent += "| ";
             }
-            Console.Write($"{Kind}: (ParentIndex: {ParentIndex}, ParentMax: {ParentMax}) (TreeDepth: {TreeDepth}, ScopeDepth: {ScopeDepth})");
+
+            Console.Write($"{Kind}:");
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            Console.Write($"ParentIndex:");
+            Console.ResetColor();
+            Console.Write($"{ParentIndex},");
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            Console.Write($"ParentMax:");
+            Console.ResetColor();
+            Console.Write($"{ParentMax})");
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.Write($"TreeDepth:);");
+            Console.ResetColor();
+            Console.Write($"{TreeDepth},");
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.Write($"ScopeDepth:");
+            Console.ResetColor();
+            Console.Write($"{ScopeDepth})");
+
             bool tokenFound = false;
             if (RuleContainsToken(Kind))
             {
                 if (Children.Count == 1)
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine($"Token: {Children[0].Token.Value}");
+                    Console.ResetColor();
                     tokenFound = true;
                 }
             }
