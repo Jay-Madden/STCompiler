@@ -100,8 +100,6 @@ namespace STCompilerLib.MetaTree
         /// <param name="last"></param>
         public void PrintChildren(string indent = "", bool last = true)
         {
-
-
             Console.Write(indent);
             if (last)
             {
