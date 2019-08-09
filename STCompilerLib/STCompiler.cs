@@ -46,7 +46,12 @@ namespace STCompilerLib
             MetaTree.MetaTree metaTree = new MetaTree.MetaTree();
             metaTree.BuildMetaTree(ctx);
             metaTree.PrintTree();
+
         }
 
+        public static class MyClass
+        {
+            
+        }
     }
 }
